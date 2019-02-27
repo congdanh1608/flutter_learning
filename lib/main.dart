@@ -1,7 +1,11 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_learning/list.dart';
+import 'package:flutter_learning/views/addDrawer.dart';
+import 'package:flutter_learning/views/fadeInOut.dart';
+import 'package:flutter_learning/views/fonts.dart';
+import 'package:flutter_learning/views/list.dart';
+import 'package:flutter_learning/views/snackBar.dart';
 
 void main() => runApp(MyApp());
 
@@ -89,7 +93,13 @@ class CookbookState extends State<Cookbook> {
       case 0:
         return new RandomWords();
       case 1:
-        return null;
+        return new FadeInOut();
+      case 2:
+        return new MyAddDrawer();
+      case 3:
+        return new MySnackBar();
+      case 4:
+        return new MyFonts();
     }
   }
 }

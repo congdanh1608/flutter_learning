@@ -14,11 +14,15 @@ class RandomWordsState extends State<RandomWords> {
         onPressed: _pushSaved,
         tooltip: "Saved",
         child: Icon(Icons.save),
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.pinkAccent,
+        mini: false,
       ),
     );
   }
 
   void _pushSaved() {
+    //navigator to new screen
     Navigator.of(context)
         .push(new MaterialPageRoute(builder: (BuildContext context) {
       final Iterable<ListTile> tiles = _saved.map((WordPair pair) {
@@ -39,6 +43,15 @@ class RandomWordsState extends State<RandomWords> {
         ),
         body: new ListView(
           children: divided,
+        ),
+        floatingActionButton: new FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+          label: new Text("Back"),
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.pinkAccent,
         ),
       );
     }));
