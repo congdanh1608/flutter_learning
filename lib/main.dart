@@ -1,104 +1,95 @@
-import 'package:english_words/english_words.dart';
-import 'package:flutter/material.dart';
+import 'dart:collection';
 
-void main() {
-  runApp(MyApp());
-}
+import 'package:flutter/material.dart';
+import 'package:flutter_learning/list.dart';
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: "Hello Flutter",
-      theme: new ThemeData(primaryColor: Colors.amber),
-      home: new RandomWords(),
+      title: "Cookbook",
+      theme: new ThemeData(primaryColor: Colors.blue),
+      home: Cookbook(),
     );
   }
 }
 
-class RandomWordsState extends State<RandomWords> {
-  final _suggestions = <WordPair>[];
+class Cookbook extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new CookbookState();
+  }
+}
+
+class CookbookState extends State<Cookbook> {
+  final Map<int, String> itemList = new HashMap();
   final _biggerFont = const TextStyle(fontSize: 18.0);
-  final _saved = Set<WordPair>();
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Startup Name Generator"),
-        actions: <Widget>[
-          new IconButton(icon: const Icon(Icons.list), onPressed: _pushSaved)
-        ],
+        title: new Text("Cookbook"),
       ),
-      body: _buildSuggestions(),
+      body: _buildCookbookContent(),
     );
   }
 
-  void _pushSaved() {
+  Widget _buildCookbookContent() {
+    //generate data for list view
+    _generateData();
+
+    return new ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: itemList.length,
+        itemBuilder: (context, i) {
+          return _buildRows(i);
+        });
+  }
+
+  Widget _buildRows(int type) {
+    var list = itemList.entries.toList();
+    return new ListTile(
+      title: Text(
+        list[type].value,
+        style: _biggerFont,
+      ),
+      trailing: new Icon(Icons.navigate_next),
+      onTap: () {
+        _onItemTap(list[type].key);
+      },
+    );
+  }
+
+  void _generateData() {
+    itemList[0] = "First demo";
+    itemList[1] = "Fade a Widget in and out";
+    itemList[2] = "Add a Drawer to a screen";
+    itemList[3] = "Displaying SnackBars";
+    itemList[4] = "Exporting fonts from a package";
+  }
+
+  void _onItemTap(int type) {
+    var list = itemList.entries.toList();
     Navigator.of(context)
         .push(new MaterialPageRoute(builder: (BuildContext context) {
-      final Iterable<ListTile> tiles = _saved.map((WordPair pair) {
-        return new ListTile(
-          title: new Text(
-            pair.asPascalCase,
-            style: _biggerFont,
-          ),
-        );
-      });
-
-      final List<Widget> divided =
-          ListTile.divideTiles(tiles: tiles, context: context).toList();
-
       return new Scaffold(
         appBar: new AppBar(
-          title: const Text('Saved Suggestion'),
+          title: new Text(list[type].value),
         ),
-        body: new ListView(
-          children: divided,
-        ),
+        body: getView(type),
       );
     }));
   }
 
-  Widget _buildSuggestions() {
-    return new ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemBuilder: (context, i) {
-          if (i.isOdd) return new Divider();
-
-          final index = i ~/ 2;
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10));
-          }
-          return _buildRow(_suggestions[index]);
-        });
+  getView(int type) {
+    switch (type) {
+      case 0:
+        return new RandomWords();
+      case 1:
+        return null;
+    }
   }
-
-  Widget _buildRow(WordPair pair) {
-    final bool alreadySaved = _saved.contains(pair);
-    return new ListTile(
-      title: Text(
-        pair.asPascalCase,
-        style: _biggerFont,
-      ),
-      trailing: new Icon(
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : null,
-      ),
-      onTap: () {
-        setState(() {
-          if (alreadySaved) {
-            _saved.remove(pair);
-          } else {
-            _saved.add(pair);
-          }
-        });
-      },
-    );
-  }
-}
-
-class RandomWords extends StatefulWidget {
-  @override
-  RandomWordsState createState() => new RandomWordsState();
 }
