@@ -35,9 +35,16 @@ flutter:
   fonts:
   - family: Raleway
     fonts:
-    - asset: fonts/Raleway-Regular.ttf
-    - asset: fonts/Raleway-Italic.ttf
+    - asset: lib/assets/fonts/Raleway-Regular.ttf
+    - asset: lib/assets/fonts/Raleway-Italic.ttf
       style: italic
+    - asset: lib/assets/fonts/Raleway-Bold.ttf
+      weight: 900
+  - family: TrajanPro
+    fonts:
+    - asset: lib/assets/fonts/TrajanPro.ttf
+    - asset: lib/assets/fonts/TrajanPro-Bold.otf
+      weight: 900
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

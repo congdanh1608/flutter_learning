@@ -1,11 +1,15 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_learning/views/addDrawer.dart';
-import 'package:flutter_learning/views/fadeInOut.dart';
-import 'package:flutter_learning/views/fonts.dart';
+import 'package:flutter_learning/views/animation/fade_in_out.dart';
+import 'package:flutter_learning/views/design/add_drawer.dart';
+import 'package:flutter_learning/views/design/fonts.dart';
+import 'package:flutter_learning/views/design/orientation_list.dart';
+import 'package:flutter_learning/views/design/snackBar.dart';
+import 'package:flutter_learning/views/design/tabs.dart';
+import 'package:flutter_learning/views/forms/custom_form.dart';
+import 'package:flutter_learning/views/forms/text_field.dart';
 import 'package:flutter_learning/views/list.dart';
-import 'package:flutter_learning/views/snackBar.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +18,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: "Cookbook",
-      theme: new ThemeData(primaryColor: Colors.blue),
+      theme: new ThemeData(
+          primaryColor: Colors.lightBlue[500],
+          brightness: Brightness.dark,
+          accentColor: Colors.cyan,
+          fontFamily: 'Raleway',
+          textTheme: TextTheme(
+            headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+            title: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+            body1: TextStyle(fontSize: 14.0, fontFamily: 'TrajanPro'),
+            body2: TextStyle(fontSize: 12.0, fontFamily: 'TrajanPro'),
+          )),
       home: Cookbook(),
     );
   }
@@ -73,6 +87,10 @@ class CookbookState extends State<Cookbook> {
     itemList[2] = "Add a Drawer to a screen";
     itemList[3] = "Displaying SnackBars";
     itemList[4] = "Exporting fonts from a package";
+    itemList[5] = "Updating the UI based on orientation";
+    itemList[6] = "Working with Tabs";
+    itemList[7] = "Building a form with validation";
+    itemList[8] = "Create, style and focus a text field";
   }
 
   void _onItemTap(int type) {
@@ -91,15 +109,23 @@ class CookbookState extends State<Cookbook> {
   getView(int type) {
     switch (type) {
       case 0:
-        return new RandomWords();
+        return RandomWords();
       case 1:
-        return new FadeInOut();
+        return FadeInOut();
       case 2:
-        return new MyAddDrawer();
+        return MyAddDrawer();
       case 3:
-        return new MySnackBar();
+        return MySnackBar();
       case 4:
-        return new MyFonts();
+        return MyFonts();
+      case 5:
+        return OrientationList();
+      case 6:
+        return MyTabBar();
+      case 7:
+        return MyCustomForm();
+      case 8:
+        return MyTextField();
     }
   }
 }
