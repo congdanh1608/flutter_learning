@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/images/image_loading.dart';
 import 'package:flutter_learning/views/animation/fade_in_out.dart';
 import 'package:flutter_learning/views/design/add_drawer.dart';
 import 'package:flutter_learning/views/design/fonts.dart';
@@ -9,7 +10,12 @@ import 'package:flutter_learning/views/design/snackBar.dart';
 import 'package:flutter_learning/views/design/tabs.dart';
 import 'package:flutter_learning/views/forms/custom_form.dart';
 import 'package:flutter_learning/views/forms/text_field.dart';
-import 'package:flutter_learning/views/list.dart';
+import 'package:flutter_learning/views/gestures/inkwell.dart';
+import 'package:flutter_learning/views/gestures/swipe.dart';
+import 'package:flutter_learning/views/lists/basic_list.dart';
+import 'package:flutter_learning/views/lists/grid_list.dart';
+import 'package:flutter_learning/views/lists/horizontal_list.dart';
+import 'package:flutter_learning/views/lists/list.dart';
 
 void main() => runApp(MyApp());
 
@@ -71,7 +77,7 @@ class CookbookState extends State<Cookbook> {
     var list = itemList.entries.toList();
     return new ListTile(
       title: Text(
-        list[type].value,
+        type.toString() + ". " + list[type].value,
         style: _biggerFont,
       ),
       trailing: new Icon(Icons.navigate_next),
@@ -91,6 +97,12 @@ class CookbookState extends State<Cookbook> {
     itemList[6] = "Working with Tabs";
     itemList[7] = "Building a form with validation";
     itemList[8] = "Create, style and focus a text field";
+    itemList[9] = "Adding Material Touch Ripples";
+    itemList[10] = "Implement Swipe to Dismiss";
+    itemList[11] = "Display images";
+    itemList[12] = "Basic List";
+    itemList[13] = "Horizontal List";
+    itemList[14] = "Grid List";
   }
 
   void _onItemTap(int type) {
@@ -126,6 +138,18 @@ class CookbookState extends State<Cookbook> {
         return MyCustomForm();
       case 8:
         return MyTextField();
+      case 9:
+        return MyInkWell();
+      case 10:
+        return MySwipe();
+      case 11:
+        return MyImage();
+      case 12:
+        return BasicList();
+      case 13:
+        return HorizontalList();
+      case 14:
+        return GridList();
     }
   }
 }
