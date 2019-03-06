@@ -23,8 +23,7 @@ class RandomWordsState extends State<RandomWords> {
 
   void _pushSaved() {
     //navigator to new screen
-    Navigator.of(context)
-        .push(new MaterialPageRoute(builder: (BuildContext context) {
+    Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) {
       final Iterable<ListTile> tiles = _saved.map((WordPair pair) {
         return new ListTile(
           title: new Text(
@@ -34,8 +33,7 @@ class RandomWordsState extends State<RandomWords> {
         );
       });
 
-      final List<Widget> divided =
-          ListTile.divideTiles(tiles: tiles, context: context).toList();
+      final List<Widget> divided = ListTile.divideTiles(tiles: tiles, context: context).toList();
 
       return new Scaffold(
         appBar: new AppBar(
