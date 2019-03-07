@@ -17,11 +17,13 @@ import 'package:flutter_learning/views/lists/basic_list.dart';
 import 'package:flutter_learning/views/lists/grid_list.dart';
 import 'package:flutter_learning/views/lists/horizontal_list.dart';
 import 'package:flutter_learning/views/lists/mylist.dart';
+import 'package:flutter_learning/views/lists/sliver_app_bar.dart';
 import 'package:flutter_learning/views/lists/type_item_list.dart';
 import 'package:flutter_learning/views/main/header_item.dart';
 import 'package:flutter_learning/views/main/item.dart';
 import 'package:flutter_learning/views/main/main_list_item.dart';
-import 'package:flutter_learning/views/navigation/sliver_app_bar.dart';
+import 'package:flutter_learning/views/navigation/hero_animation.dart';
+import 'package:flutter_learning/views/navigation/route_navigation.dart';
 import 'package:sentry/sentry.dart';
 
 /*region for maintenance*/
@@ -44,10 +46,9 @@ void main() async {
 }
 
 bool get isInDebugMode {
-//  bool inDebugMode = false;
-//  assert(inDebugMode = true);
-//  return inDebugMode;
-  return false;
+  bool inDebugMode = false;
+  assert(inDebugMode = true);
+  return inDebugMode;
 }
 
 Future<Null> _reportError(dynamic error, dynamic stackTrace) async {
@@ -73,6 +74,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Cookbook(),
+        '/nextScreen': (context) => MyNextRouteNavigation(),
+      },
+      onGenerateRoute: _getRoute,
+      //if there is route define on MaterialApp() => don't need to define home here.
+      /*home: Cookbook(),*/
+      //Another way use OnGenerateRoute with pushNamed
+      //https://stackoverflow.com/questions/53304340/navigator-pass-arguments-with-pushnamed/54770709#54770709
       title: "Cookbook",
       theme: new ThemeData(
           primaryColor: Colors.lightBlue[500],
@@ -85,8 +96,23 @@ class MyApp extends StatelessWidget {
             body1: TextStyle(fontSize: 16.0, fontFamily: 'TrajanPro'),
             body2: TextStyle(fontSize: 12.0, fontFamily: 'TrajanPro'),
           )),
-      home: Cookbook(),
     );
+  }
+
+  Route<dynamic> _getRoute(routeSettings) {
+    switch (routeSettings.name) {
+      case '/nextScreen':
+        print('NextScreen');
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (context) => MyNextRouteNavigation(),
+        );
+      default:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (context) => Cookbook(),
+        );
+    }
   }
 }
 
@@ -134,6 +160,7 @@ class Cookbook extends StatefulWidget {
 
     items.add(new HeaderItem("Navigation", Colors.purple));
     items.add(new Item("Animating a Widget across screens", 17));
+    items.add(new Item("Navigate with named routes", 18));
   }
 }
 
@@ -260,7 +287,9 @@ class CookbookState extends State<Cookbook> {
       case 16:
         return RandomWords();
       case 17:
-        return null;
+        return MyHeroAnimation();
+      case 18:
+        return MyRouteNavigation();
     }
   }
 }
