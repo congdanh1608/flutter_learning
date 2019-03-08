@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 import 'package:flutter_learning/images/image_loading.dart';
@@ -24,9 +25,12 @@ import 'package:flutter_learning/views/main/item.dart';
 import 'package:flutter_learning/views/main/main_list_item.dart';
 import 'package:flutter_learning/views/navigation/hero_animation.dart';
 import 'package:flutter_learning/views/navigation/route_navigation.dart';
+import 'package:flutter_learning/views/networking/http.dart';
+import 'package:flutter_learning/views/networking/parsing_background.dart';
 import 'package:sentry/sentry.dart';
 
 /*region for maintenance*/
+//for flutter crash
 void main() async {
   FlutterError.onError = (FlutterErrorDetails details) {
     if (isInDebugMode) {
@@ -41,6 +45,7 @@ void main() async {
   runZoned<Future<Null>>(() async {
     runApp(MyApp());
   }, onError: (error, stackTrace) async {
+    //for dart crash + flutter crash
     await _reportError(error, stackTrace);
   });
 }
@@ -52,6 +57,12 @@ bool get isInDebugMode {
 }
 
 Future<Null> _reportError(dynamic error, dynamic stackTrace) async {
+  if (isInDebugMode) {
+    print(error);
+    print(stackTrace);
+    return;
+  }
+
   print('Reporting to Firebase Crashlytics...');
   FlutterCrashlytics().reportCrash(error, stackTrace, forceCrash: false);
 
@@ -75,15 +86,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       initialRoute: '/',
-      routes: {
+      /*routes: {
         '/': (context) => Cookbook(),
         '/nextScreen': (context) => MyNextRouteNavigation(),
-      },
-      onGenerateRoute: _getRoute,
+      },*/
       //if there is route define on MaterialApp() => don't need to define home here.
       /*home: Cookbook(),*/
       //Another way use OnGenerateRoute with pushNamed
       //https://stackoverflow.com/questions/53304340/navigator-pass-arguments-with-pushnamed/54770709#54770709
+      onGenerateRoute: _getRoute,
+
       title: "Cookbook",
       theme: new ThemeData(
           primaryColor: Colors.lightBlue[500],
@@ -105,7 +117,7 @@ class MyApp extends StatelessWidget {
         print('NextScreen');
         return MaterialPageRoute(
           settings: routeSettings,
-          builder: (context) => MyNextRouteNavigation(),
+          builder: (context) => MyNextRouteNavigation(test: routeSettings.arguments),
         );
       default:
         return MaterialPageRoute(
@@ -161,6 +173,10 @@ class Cookbook extends StatefulWidget {
     items.add(new HeaderItem("Navigation", Colors.purple));
     items.add(new Item("Animating a Widget across screens", 17));
     items.add(new Item("Navigate with named routes", 18));
+
+    items.add(new HeaderItem("Networking", Colors.yellow));
+    items.add(new Item("Fetch data from the internet", 19));
+    items.add(new Item("Parsing JSON in the background", 20));
   }
 }
 
@@ -290,6 +306,10 @@ class CookbookState extends State<Cookbook> {
         return MyHeroAnimation();
       case 18:
         return MyRouteNavigation();
+      case 19:
+        return MyHttp();
+      case 20:
+        return MyParsingJson();
     }
   }
 }
