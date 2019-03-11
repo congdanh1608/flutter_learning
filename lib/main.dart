@@ -25,8 +25,10 @@ import 'package:flutter_learning/views/main/item.dart';
 import 'package:flutter_learning/views/main/main_list_item.dart';
 import 'package:flutter_learning/views/navigation/hero_animation.dart';
 import 'package:flutter_learning/views/navigation/route_navigation.dart';
+import 'package:flutter_learning/views/networking/dio.dart';
 import 'package:flutter_learning/views/networking/http.dart';
 import 'package:flutter_learning/views/networking/parsing_background.dart';
+import 'package:flutter_learning/views/networking/socket.dart';
 import 'package:sentry/sentry.dart';
 
 /*region for maintenance*/
@@ -177,6 +179,11 @@ class Cookbook extends StatefulWidget {
     items.add(new HeaderItem("Networking", Colors.yellow));
     items.add(new Item("Fetch data from the internet", 19));
     items.add(new Item("Parsing JSON in the background", 20));
+    items.add(new Item("Working with WebSockets", 21));
+    items.add(new Item("Parse data with DIO", 22));
+
+    items.add(new HeaderItem("Persistence", Colors.orangeAccent));
+    items.add(new Item("Persist data with SQLite", 23));
   }
 }
 
@@ -310,6 +317,12 @@ class CookbookState extends State<Cookbook> {
         return MyHttp();
       case 20:
         return MyParsingJson();
+      case 21:
+        return MySocket();
+      case 22:
+        return MyDio();
+      case 23:
+        return null;
     }
   }
 }

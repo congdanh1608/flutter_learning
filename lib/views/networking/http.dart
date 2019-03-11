@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_learning/views/networking/post.dart';
+import 'package:flutter_learning/views/networking/model/post.dart';
 import 'package:http/http.dart' as http;
 
 class MyHttp extends StatelessWidget {

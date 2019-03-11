@@ -1,3 +1,8 @@
+library photo;
+
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonSerializable()
 class Photo {
   final int albumId;
   final int id;
@@ -13,7 +18,7 @@ class Photo {
       id: json['id'] as int,
       title: json['title'] as String,
       url: json['url'] as String,
-      thumbnailUrl: json['thumbmailUrl'] as String,
+      thumbnailUrl: json['thumbnailUrl'] as String,
     );
   }
 }

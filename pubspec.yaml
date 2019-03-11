@@ -25,7 +25,11 @@ dependencies:
   flutter_crashlytics: ^0.2.1+1
   sentry: ^2.2.0
   http: ^0.12.0+1
+  dio: ^2.0.20
+  rxdart: ^0.21.0
   json_serializable: ^2.0.2
+  web_socket_channel: ^1.0.9
+
 
 dev_dependencies:
   flutter_test:
