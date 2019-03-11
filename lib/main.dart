@@ -29,6 +29,7 @@ import 'package:flutter_learning/views/networking/dio.dart';
 import 'package:flutter_learning/views/networking/http.dart';
 import 'package:flutter_learning/views/networking/parsing_background.dart';
 import 'package:flutter_learning/views/networking/socket.dart';
+import 'package:flutter_learning/views/persistence/database.dart';
 import 'package:sentry/sentry.dart';
 
 /*region for maintenance*/
@@ -322,7 +323,7 @@ class CookbookState extends State<Cookbook> {
       case 22:
         return MyDio();
       case 23:
-        return null;
+        return MyDatabase();
     }
   }
 }
