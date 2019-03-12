@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_learning/views/networking/bloc/UserBloc.dart';
+import 'package:flutter_learning/views/networking/bloc/user_bloc.dart';
 import 'package:flutter_learning/views/networking/model/user.dart';
 
 class MyDio extends StatefulWidget {

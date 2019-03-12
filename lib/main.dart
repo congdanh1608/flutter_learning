@@ -30,6 +30,7 @@ import 'package:flutter_learning/views/networking/http.dart';
 import 'package:flutter_learning/views/networking/parsing_background.dart';
 import 'package:flutter_learning/views/networking/socket.dart';
 import 'package:flutter_learning/views/persistence/database.dart';
+import 'package:flutter_learning/views/persistence/files.dart';
 import 'package:sentry/sentry.dart';
 
 /*region for maintenance*/
@@ -185,6 +186,7 @@ class Cookbook extends StatefulWidget {
 
     items.add(new HeaderItem("Persistence", Colors.orangeAccent));
     items.add(new Item("Persist data with SQLite", 23));
+    items.add(new Item("Reading and Writing Files", 24));
   }
 }
 
@@ -324,6 +326,8 @@ class CookbookState extends State<Cookbook> {
         return MyDio();
       case 23:
         return MyDatabase();
+      case 24:
+        return MyFiles();
     }
   }
 }
