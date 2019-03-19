@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 import 'package:flutter_learning/images/image_loading.dart';
 import 'package:flutter_learning/views/animation/fade_in_out.dart';
@@ -31,11 +32,16 @@ import 'package:flutter_learning/views/networking/parsing_background.dart';
 import 'package:flutter_learning/views/networking/socket.dart';
 import 'package:flutter_learning/views/persistence/database.dart';
 import 'package:flutter_learning/views/persistence/files.dart';
+import 'package:flutter_learning/views/persistence/prefs.dart';
+import 'package:flutter_learning/views/plugins/camera.dart';
+import 'package:flutter_learning/views/plugins/video_player.dart';
 import 'package:sentry/sentry.dart';
 
 /*region for maintenance*/
 //for flutter crash
 void main() async {
+  final cameras = await availableCameras();
+
   FlutterError.onError = (FlutterErrorDetails details) {
     if (isInDebugMode) {
       FlutterError.dumpErrorToConsole(details);
@@ -47,7 +53,7 @@ void main() async {
   await FlutterCrashlytics().initialize();
 
   runZoned<Future<Null>>(() async {
-    runApp(MyApp());
+    runApp(MyApp(cameras: cameras));
   }, onError: (error, stackTrace) async {
     //for dart crash + flutter crash
     await _reportError(error, stackTrace);
@@ -86,6 +92,10 @@ Future<Null> _reportError(dynamic error, dynamic stackTrace) async {
 /*end region for maintenance*/
 
 class MyApp extends StatelessWidget {
+  final cameras;
+
+  const MyApp({Key key, this.cameras}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -126,25 +136,28 @@ class MyApp extends StatelessWidget {
       default:
         return MaterialPageRoute(
           settings: routeSettings,
-          builder: (context) => Cookbook(),
+          builder: (context) => Cookbook(cameras: cameras),
         );
     }
   }
 }
 
 class Cookbook extends StatefulWidget {
-  final List<MainListItem> items = new List();
+  final cameras;
+
+  const Cookbook({Key key, this.cameras}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
+    final List<MainListItem> items = new List();
     //generate the data
-    _generateData();
+    _generateData(items);
 
     //main view
     return new CookbookState(items);
   }
 
-  void _generateData() {
+  void _generateData(List<MainListItem> items) {
     items.add(new HeaderItem("Animation", Colors.cyan));
     items.add(new Item("Fade a Widget in and out", 0));
 
@@ -187,6 +200,11 @@ class Cookbook extends StatefulWidget {
     items.add(new HeaderItem("Persistence", Colors.orangeAccent));
     items.add(new Item("Persist data with SQLite", 23));
     items.add(new Item("Reading and Writing Files", 24));
+    items.add(new Item("Storing key-value data on disk", 25));
+
+    items.add(new HeaderItem("Plugins", Colors.orangeAccent));
+    items.add(new Item("Play and pause a video", 26));
+    items.add(new Item("Take a picture using the Camera", 27));
   }
 }
 
@@ -244,7 +262,7 @@ class CookbookState extends State<Cookbook> {
     }
   }
 
-  void _onItemTap(int type) {
+  _onItemTap(int type) {
     Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) {
       return new Scaffold(
         appBar: isShowAppBar(type)
@@ -328,6 +346,12 @@ class CookbookState extends State<Cookbook> {
         return MyDatabase();
       case 24:
         return MyFiles();
+      case 25:
+        return MySharedPreferences();
+      case 26:
+        return MyVideo();
+      case 27:
+        return TakePictureScreen(cameras: widget.cameras);
     }
   }
 }
