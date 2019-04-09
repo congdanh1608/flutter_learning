@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_learning/views/bloc/counter_bloc.dart';
-import 'package:flutter_learning/views/bloc/counter_event.dart';
+import 'package:flutter_learning/views/bloc/counter/counter_bloc.dart';
+import 'package:flutter_learning/views/bloc/counter/counter_event.dart';
 
 class CounterPage extends StatelessWidget {
   @override
@@ -27,7 +27,7 @@ class CounterPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(12.0),
               child: FloatingActionButton(
-                heroTag: "1",
+                heroTag: null,
                 onPressed: () {
                   _counterBloc.dispatch(CounterEvent.increase);
                 },
@@ -37,7 +37,7 @@ class CounterPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(12.0),
               child: FloatingActionButton(
-                heroTag: "2",
+                heroTag: null,
                 onPressed: () {
                   _counterBloc.dispatch(CounterEvent.decrease);
                 },

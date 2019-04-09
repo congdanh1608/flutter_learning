@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_learning/views/bloc/counter_event.dart';
+import 'package:flutter_learning/views/bloc/counter/counter_event.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 

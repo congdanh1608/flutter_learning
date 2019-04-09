@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_learning/views/bloc/counter_bloc.dart';
-import 'package:flutter_learning/views/bloc/counter_page.dart';
+import 'package:flutter_learning/views/bloc/counter/counter_bloc.dart';
+import 'package:flutter_learning/views/bloc/counter/counter_page.dart';
 
 class MyCounter extends StatefulWidget {
   @override

@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 import 'package:flutter_learning/images/image_loading.dart';
 import 'package:flutter_learning/views/animation/fade_in_out.dart';
+import 'package:flutter_learning/views/bloc/counter/counter.dart';
+import 'package:flutter_learning/views/bloc/infinite_list/post_layout.dart';
+import 'package:flutter_learning/views/bloc/login/app_page.dart';
 import 'package:flutter_learning/views/design/add_drawer.dart';
 import 'package:flutter_learning/views/design/fonts.dart';
 import 'package:flutter_learning/views/design/orientation_list.dart';
@@ -205,6 +208,11 @@ class Cookbook extends StatefulWidget {
     items.add(new HeaderItem("Plugins", Colors.orangeAccent));
     items.add(new Item("Play and pause a video", 26));
     items.add(new Item("Take a picture using the Camera", 27));
+
+    items.add(new HeaderItem("Bloc", Colors.deepOrangeAccent));
+    items.add(new Item("Counter", 28));
+    items.add(new Item("Infinite List", 29));
+    items.add(new Item("Login", 30));
   }
 }
 
@@ -352,6 +360,12 @@ class CookbookState extends State<Cookbook> {
         return MyVideo();
       case 27:
         return TakePictureScreen(cameras: widget.cameras);
+      case 28:
+        return MyCounter();
+      case 29:
+        return InfiniteList();
+      case 30:
+        return AppPage();
     }
   }
 }
