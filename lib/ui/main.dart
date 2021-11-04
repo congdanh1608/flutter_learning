@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_learning/database_screen/database_screen.dart';
 import 'package:flutter_learning/services/firebase/fb_messaging.dart';
 
-import 'flutter_for_android.dart';
+import '../extras/custom_page_route.dart';
+import 'animation/animated_container.dart';
+import 'basic_for_android_devs/flutter_for_android.dart';
+import 'database_screen/database_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,10 +20,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "My App", theme: ThemeData(primaryColor: Colors.red), home: const HomePage(), routes: <String, WidgetBuilder>{
-      'flutter_for_android': (BuildContext context) => FlutterForAndroid(title: "Flutter for Android"),
-      'database': (BuildContext context) => DatabaseScreen(title: "Database")
-    });
+    return MaterialApp(
+        title: "My App",
+        theme: ThemeData(primaryColor: Colors.red),
+        home: const HomePage(),
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case 'flutter_for_android':
+              return MyPageRoute(
+                  builder: (context) {
+                    return FlutterForAndroid(title: "Flutter for Android");
+                  },
+                  settings: settings);
+
+            case 'database':
+              return MyPageRoute(
+                  builder: (context) {
+                    return DatabaseScreen(title: "Database");
+                  },
+                  settings: settings);
+
+            case 'animated':
+              return MyPageRoute(
+                  builder: (context) {
+                    return const AnimatedContainerScreen();
+                  },
+                  settings: settings);
+          }
+        });
   }
 }
 
@@ -64,6 +91,14 @@ class HomePageState extends State<HomePage> {
                     );
                   },
                   child: const Text("Database")),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      'animated',
+                    );
+                  },
+                  child: const Text("Animation")),
             ],
           ),
         ));

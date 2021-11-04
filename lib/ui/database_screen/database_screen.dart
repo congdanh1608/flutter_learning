@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/db/client.dart';
 
-import '../db/client.dart';
 import 'clients_bloc.dart';
 
 class DatabaseScreen extends StatefulWidget {
