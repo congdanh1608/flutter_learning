@@ -71,8 +71,26 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Home Page")),
-        body: const Center(child: Text("Home Page")),
-        drawer: const MyDrawer());
+        appBar: AppBar(
+            title: const Text(
+          'Home Page',
+        )),
+        drawer: const MyDrawer(),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  child: const Text('Show SnackBar'),
+                  onPressed: () {
+                    var snackBar = SnackBar(
+                        duration: const Duration(seconds: 2),
+                        content: const Text('Hi! Here is your snack bar message'),
+                        action: SnackBarAction(label: 'Goooo', onPressed: () {}));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }),
+            ],
+          ),
+        ));
   }
 }

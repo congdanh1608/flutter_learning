@@ -61,16 +61,48 @@ class FlutterForAndroidState extends State<FlutterForAndroid> with WidgetsBindin
             onTap: () {
               print("tap row $i");
             },
-            child: Row(children: [
-              Image.asset('images/ic_ac_unit.png'),
-              Text(
-                "Row ${contents![i]["title"]}",
-                style: const TextStyle(fontFamily: 'Avenir-Medium'),
-                maxLines: 2,
-              ),
-            ]),
+            child: Row(children: [Image.asset('images/ic_ac_unit.png'), getText(i)]),
           ),
         ));
+  }
+
+  Widget getText(int i) {
+    if (i == 0) {
+      return Text(
+        "Row ${contents![i]["title"]}",
+        style: const TextStyle(fontFamily: 'Raleway'),
+        maxLines: 2,
+      );
+    } else if (i == 1) {
+      return Text(
+        "Row ${contents![i]["title"]}",
+        style: const TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.w300),
+        maxLines: 2,
+      );
+    } else if (i == 2) {
+      return Text(
+        "Row ${contents![i]["title"]}",
+        style: const TextStyle(fontFamily: 'Avenir', fontWeight: FontWeight.w800),
+        maxLines: 2,
+      );
+    } else if (i == 3) {
+      return Text(
+        "Row ${contents![i]["title"]}",
+        style: const TextStyle(fontFamily: 'Avenir', fontStyle: FontStyle.italic),
+        maxLines: 2,
+      );
+    } else if (i == 4) {
+      return Text(
+        "Row ${contents![i]["title"]}",
+        style: const TextStyle(fontFamily: 'Avenir'),
+        maxLines: 2,
+      );
+    } else {
+      return Text(
+        "Row ${contents![i]["title"]}",
+        maxLines: 2,
+      );
+    }
   }
 
   Widget getBody() {

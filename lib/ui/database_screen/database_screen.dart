@@ -95,7 +95,6 @@ class DatabaseScreenState extends State<DatabaseScreen> {
                   Image.asset('images/ic_ac_unit.png'),
                   Text(
                     "Row ${client.firstName}",
-                    style: const TextStyle(fontFamily: 'Avenir-Medium'),
                     maxLines: 2,
                   ),
                 ]),

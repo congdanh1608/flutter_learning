@@ -98,8 +98,17 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
-fonts:
-  - family: Avenir-Medium
-    fonts:
-      - asset: fonts/Avenir-Medium.ttf
-      - style: normal
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-Medium.ttf
+    - family: Avenir
+      fonts:
+        - asset: assets/fonts/Avenir-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Avenir-Black.ttf
+          weight: 800
+        - asset: assets/fonts/Avenir-Oblique.ttf
+          style: italic
+        - asset: assets/fonts/Avenir-Medium.ttf
+          style: normal
