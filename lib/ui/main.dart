@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/extras/my_drawer.dart';
 import 'package:flutter_learning/services/firebase/fb_messaging.dart';
 
 import '../extras/custom_page_route.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: "My App",
-        theme: ThemeData(primaryColor: Colors.red),
+        theme: ThemeData(primaryColor: Colors.blue),
         home: const HomePage(),
         onGenerateRoute: (settings) {
           switch (settings.name) {
@@ -71,36 +72,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text("Home Page")),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      'flutter_for_android',
-                    );
-                  },
-                  child: const Text("Flutter for Android devs")),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      'database',
-                    );
-                  },
-                  child: const Text("Database")),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      'animated',
-                    );
-                  },
-                  child: const Text("Animation")),
-            ],
-          ),
-        ));
+        body: const Center(child: Text("Home Page")),
+        drawer: const MyDrawer());
   }
 }
